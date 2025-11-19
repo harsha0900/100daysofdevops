@@ -1,0 +1,40 @@
+Problem: 
+Create a user named harsha with a non-interactive shell on App Server 1.
+
+solution: 
+SSH into the appserver 1
+>> ssh username@stapp01
+provide password
+
+server1>>sudo useradd -m -s /sbin/nologin username
+create the user with home directory and set the shell to nologin
+
+verify: 
+Verify the user and shell
+# check /etc/passwd entry
+getent passwd username
+
+Extra Information:
+/sbin/nologin prevents interactive logins.
+/usr/sbin/nologin or /bin/false are alternatives.
+
+1)Debian/Ubuntu friendly (using adduser wrapper)
+# create user, create home, but disable interactive login
+sudo adduser --disabled-login --shell /usr/sbin/nologin username
+
+--disabled-login creates the account but prevents password login. 
+adduser will prompt for user details unless you use additional flags; 
+
+2) Create a non-interactive system/service user (no home, system account)
+# create a system user (typically used for services), no home, no login shell
+sudo useradd -r -s /usr/sbin/nologin -M svc_user
+
+-r marks it a system account, -M prevents creating a home directory.
+
+3) Change an existing user to non-interactive shell
+# change shell
+sudo chsh -s /sbin/nologin username
+
+# or edit /etc/passwd directly (less recommended)
+sudo usermod -s /sbin/nologin username
+
