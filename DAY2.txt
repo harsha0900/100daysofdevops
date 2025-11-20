@@ -1,0 +1,14 @@
+Problem:
+Create a user named harsha on App Server 2 in Stratos Datacenter. Set the expiry date to 2024-01-28, 
+ensuring the user is created in lowercase as per standard protocol.
+
+Solution:
+
+server2>> sudo useradd -m -e 2024-01-28 username
+verify - sudo chage -l username(it will display the expiry date of the user)
+
+Extra Information:
+🔄 Modify expiry of an existing user
+If user already exists:
+
+sudo usermod -e 2026-01-15 username
