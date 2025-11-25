@@ -1,0 +1,11 @@
+Problem: 
+Your task is to disable direct SSH root login on all app servers within the Stratos Datacenter.
+
+Solution:
+step1:Login to each app server and change the PermitRootLogin as no in file /etc/ssh/sshd_config.
+step2:Restart ssh service (sudo systemctl restart sshd)
+
+* changes will apply only after restart
+
+The file /etc/ssh/sshd_config is the main configuration file for the SSH server daemon (sshd) on Linux/Unix systems.
+
