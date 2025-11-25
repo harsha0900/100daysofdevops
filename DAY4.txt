@@ -1,0 +1,11 @@
+Problem: Your task is to grant executable permissions to the /tmp/xfusioncorp.sh script on App Server 3. 
+Additionally, ensure that all users have the capability to execute it.
+
+Solution:
+ssh to the appserver3. and allow file xfusioncorp.sh is executable by everyone, using chmod command.
+make sure the all users have the executable permission on directory level
+
+step1:check the current existed permissions of the file using 
+ls -ltr command
+step2:add the read and execute permissions to all the users.using below command.
+sudo chmod 555 /tmp/xfusioncorp.sh
