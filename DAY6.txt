@@ -1,0 +1,24 @@
+problem: Schedule a below cronjob on all appservers.
+*/5 * * * * echo hello > /tmp/cron_text only  for root user.
+
+Solution: 
+ssh to all app server one by one and follow below steps.
+
+step1 - systemctl status crond (check if crond is install and status of it ) 
+if not installed then use command - sudo yum install cronie
+step2 - add a cronjob to a specific root user 
+command - sudo crontab -u root -e   
+add the "*/5 * * * * echo hello > /tmp/cron_text" in file and save it.
+step3 - recheck if cronjob is scheduled.
+command - sudo crontab -u root -l
+
+
+Structure/pattern of the cronjobs:
+
+┌───────── Minute (0–59)
+│ ┌────── Hour (0–23)
+│ │ ┌──── Day of month (1–31)
+│ │ │ ┌── Month (1–12)
+│ │ │ │ ┌─ Day of week (0–6, Sun=0)
+│ │ │ │ │
+* * * * *  command
