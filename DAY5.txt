@@ -1,0 +1,16 @@
+Problem: Installing SELinux in appserver3.Status should be in disable mode.
+
+solution:
+Step1: ssh to appserver 3
+step2: check the distrubution of the linux if it is centos/ubuntu.
+      command - cat /etc/os-release
+step3: centos: sudo yum install selinux-policy selinux-policy-targeted policycoreutils policycoreutils-python-utils
+step4: check the status of the selinux 
+      command - sestatus
+step5: it showsas disabled. if not then disable it using the below
+     - sudo vi /etc/selinux/config
+        SELINUX=disabled
+   options:
+   enforcing — active & blocking
+   permissive — logs but doesn’t block
+   disabled — off
