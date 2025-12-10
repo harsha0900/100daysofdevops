@@ -1,0 +1,15 @@
+Problem: 
+Install ansible version 4.9.0 on Jump host using pip3 only. 
+Make sure Ansible binary is available globally on this system, i.e all users on this system are able to run Ansible commands.
+
+Solution:
+Since ours is centos machine, use yum instead of apt.
+
+Step 1: Install pip3 (if not installed)
+sudo yum install python3-pip -y
+
+Step 2: Install Ansible 4.9.0 using pip3 (system-wide)
+sudo pip3 install ansible==4.9.0
+
+Step 3: Verify installation
+ansible --version
