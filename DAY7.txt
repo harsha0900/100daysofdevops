@@ -1,0 +1,20 @@
+Problem: 
+Set up a password-less authentication from user thor on jump host to all app servers through their respective sudo users.
+
+Solution:
+generate the public key in jump host and copy the public key to app servers, so that password less athentication is enabled.
+
+step1:
+Generate SSH key on the Jump Host (as thor)
+>> ssh-keygen -t rsa -b 4096
+
+{ssh-keygen => this will generate the key}
+{-t rsa => type of key mostly we use rsa}
+{-b 4096 => size in bits, use 4096 than 2048 in prod to ensure security.
+
+this generates the keys in /home/thor/.ssh/id_rsa and /home/thor/.ssh/id_rsa.pub
+
+step2: copy the key to appservers 
+>> ssh-copy-id user@appserver
+
+👉 ssh-copy-id copies your public key to a remote server so that you can SSH without a password.
