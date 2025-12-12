@@ -1,0 +1,19 @@
+Problem:
+There is a critical issue going on with the Nautilus application in Stratos DC. The production support team identified 
+that the application is unable to connect to the database. After digging into the issue, the team found that mariadb 
+service is down on the database server.
+
+Look into the issue and fix the same
+
+Solution:
+step1: checked the status of the mariadb service once after SSH into the stratos dc.
+>>> sudo systemctl status mariadb
+step2: Noticed that mariadb server is down
+step3: Trying to start the server
+>> sudo systemctl start mariadb
+step4: Noticed that it is not getting started, checked the logs using journalctl command
+>> sudo jounrnalctl -xeu mariadb.service 
+step5: observed that mariadb is not able to create required file in some folder, so provided the required 
+permissons for mariadb.service to access that folder/directory. 
+step6: Started the mariadb service.
+step7: checked the status to ensure it is running and active.
