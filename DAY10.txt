@@ -1,0 +1,47 @@
+a. Create a zip archive named xfusioncorp_ecommerce.zip of /var/www/html/ecommerce directory. 
+b. Save the archive in /backup/ on App Server 2. This is a temporary storage, as backups from this location will be clean on weekly basis. 
+   Therefore, we also need to save this backup archive on Nautilus Backup Server. 
+c. Copy the created archive to Nautilus Backup Server server in /backup/ location. 
+d. Please make sure script won't ask for password while copying the archive file. Additionally, the respective server user (for example, tony in case of App Server 1) must be able to run it.
+
+
+
+#!/bin/bash
+
+
+#variables
+SOURCE_DIR="/var/www/html/ecommerce"
+LOCAL_BACKUP_DIR="/backup"
+ZIP_NAME="xfusioncorp_ecommerce.zip"
+LOCAL_ZIP="$LOCAL_BACKUP_DIR/$ZIP_NAME"
+
+BACKUP_USER="clint"
+BACKUP_SERVER="stbkp01"
+REMOTE_BACKUP_DIR="/backup"
+
+#check source
+if [ ! -d "$SOURCE_DIR" ]; then
+   echo "Source directory doesnot exist: $SOURCE_DIR"
+   exit 1
+fi
+
+#create backupdir
+mkdir -p "$LOCAL_BACKUP_DIR"
+
+#create zip archive
+zip -r "$LOCAL_ZIP" "$SOURCE_DIR" > /dev/null
+
+if [ $? -ne 0 ]; then
+   echo "Failed to create zip archieve"
+   exit 1
+fi
+
+#--copy to backup server
+scp -o BatchMode=yes "$LOCAL_ZIP" "$BACKUP_USER@$BACKUP_SERVER:$REMOTE_BACKUP_DIR/"
+
+if [ $? -ne 0 ]; then
+  echo "failed to copy archieve to nautalius server"
+  exit 1
+fi
+
+echo "archieve successfull"
